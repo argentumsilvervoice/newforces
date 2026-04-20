@@ -1506,7 +1506,7 @@
       phone:  phone,
       email:  email,
       qty:    _preorderQty,
-      source: "lekar-wei-lp"
+      source: "new-forces-pure"
     };
 
     // Отправка в Google Sheets (no-cors — ответ непрозрачный, но запись пройдёт)
