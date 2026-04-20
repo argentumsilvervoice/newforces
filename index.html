@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лекарь Вэй — Код долголетия: новые силы</title>
+  <meta name="description" content="Фиолетовая смесь долголетия на основе традиционной китайской медицины. Просто добавьте в любимое блюдо — без смены рациона." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --color-bg:           #FAFAF8;
+      --color-surface:      #FFFFFF;
+      --color-lavender:     #E9E4F0;
+      --color-lavender-mid: #D6CDE8;
+      --color-purple-deep:  #2D1B4E;
+      --color-purple-mid:   #4A2D7A;
+      --color-purple-soft:  #7B5EA7;
+      --color-purple-pale:  #F2EEF8;
+      --color-text:         #2D1B4E;
+      --color-text-muted:   #6B5B8E;
+      --color-text-faint:   #A899C4;
+      --color-border:       #DDD7EC;
+      --color-gold:         #C8963C;
+
+      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+      --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+      --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+
+      --space-1:  0.25rem; --space-2:  0.5rem;  --space-3:  0.75rem;
+      --space-4:  1rem;    --space-5:  1.25rem; --space-6:  1.5rem;
+      --space-8:  2rem;    --space-10: 2.5rem;  --space-12: 3rem;
+      --space-16: 4rem;    --space-20: 5rem;    --space-24: 6rem;
+
+      --radius-sm:   0.375rem;  --radius-md: 0.75rem;
+      --radius-lg:   1.25rem;   --radius-xl: 2rem;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(45,27,78,.06);
+      --shadow-md: 0 8px 28px rgba(45,27,78,.10);
+      --shadow-lg: 0 20px 56px rgba(45,27,78,.15);
+
+      --font-body:    'Montserrat', 'Helvetica Neue', sans-serif;
+      --transition:   200ms cubic-bezier(0.16, 1, 0.3, 1);
+      --content-wide: 1200px;
+      --content-text: 760px;
+    }
+
+    /* ─── BASE ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.65;
+    }
+    img, svg { display: block; max-width: 100%; height: auto; }
+    h1,h2,h3,h4 { text-wrap: balance; line-height: 1.15; }
+    p, li { text-wrap: pretty; }
+
+    /* ─── LAYOUT HELPERS ─────────────────────────────────────────── */
+    .container {
+      max-width: var(--content-wide);
+      margin-inline: auto;
+      padding-inline: clamp(var(--space-5), 5vw, var(--space-12));
+    }
+    .section {
+      padding-block: clamp(var(--space-12), 8vw, var(--space-24));
+    }
+    .section--alt { background: var(--color-lavender); }
+    .section--dark {
+      background: var(--color-purple-deep);
+      color: #fff;
+    }
+
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-purple-soft); margin-bottom: var(--space-4);
+    }
+    .section-eyebrow::before {
+      content: ''; display: block; width: 20px; height: 2px;
+      background: currentColor; border-radius: var(--radius-full);
+    }
+    .section--dark .section-eyebrow { color: var(--color-lavender-mid); }
+
+    .section-heading {
+      font-size: var(--text-2xl); font-weight: 800;
+      color: var(--color-purple-deep); margin-bottom: var(--space-5);
+      letter-spacing: -0.02em;
+    }
+    .section--dark .section-heading { color: #fff; }
+    .section--alt .section-heading  { color: var(--color-purple-deep); }
+
+    .section-sub {
+      font-size: var(--text-base); color: var(--color-text-muted);
+      max-width: 56ch; line-height: 1.75;
+    }
+    .section--dark .section-sub { color: rgba(255,255,255,0.65); }
+
+    /* ─── HEADER ─────────────────────────────────────────────────── */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .header__inner {
+      max-width: var(--content-wide); margin-inline: auto;
+      padding-inline: clamp(var(--space-5), 5vw, var(--space-12));
+      height: 68px; display: flex; align-items: center;
+      justify-content: space-between; gap: var(--space-4);
+    }
+    .logo { display: flex; align-items: center; gap: var(--space-3);
+      text-decoration: none; color: var(--color-purple-deep); }
+    .logo__icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .logo__text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo__name {
+      font-size: var(--text-sm); font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .logo__tagline {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em; color: var(--color-deep-purple);
+      text-transform: uppercase; line-height: 1.3;
+    }
+    .logo__sub {
+      display: block; font-size: 0.60rem; font-weight: 400;
+      letter-spacing: 0.04em; color: var(--color-text-muted);
+      text-transform: none; line-height: 1.3; margin-top: 1px;
+    }
+    .badge-natural {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: var(--color-lavender);
+      border: 1px solid var(--color-lavender-mid);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-4) var(--space-1) var(--space-3);
+      font-size: var(--text-xs); font-weight: 600;
+      color: var(--color-purple-mid); letter-spacing: 0.04em; white-space: nowrap;
+    }
+    .badge-natural__dot {
+      width: 7px; height: 7px; border-radius: var(--radius-full);
+      background: var(--color-purple-soft); flex-shrink: 0;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      max-width: var(--content-wide); margin-inline: auto;
+      padding-inline: clamp(var(--space-5), 5vw, var(--space-12));
+      padding-block: clamp(var(--space-12), 8vw, var(--space-24));
+      /* Мобайл: flex-колонка с явным порядком */
+      display: flex; flex-direction: column;
+      gap: var(--space-8);
+    }
+    /* Порядок на мобайле: 1-заголовок, 2-мокап, 3-буллиты */
+    .hero__text-top    { display: flex; flex-direction: column; gap: var(--space-5); order: 1; }
+    .hero__visual      { order: 2; }
+    .hero__text-bottom { display: flex; flex-direction: column; gap: var(--space-6); order: 3; }
+
+    @media (min-width: 900px) {
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        gap: clamp(var(--space-8), 5vw, var(--space-16));
+        min-height: calc(100dvh - 68px);
+        padding-block: clamp(var(--space-10), 5vw, var(--space-20));
+        align-items: start;
+      }
+      /* Десктоп: левая колонка — весь текст сверху вниз; правая — мокап */
+      .hero__text-top    { order: 0; grid-column: 1; grid-row: 1; }
+      .hero__text-bottom { order: 0; grid-column: 1; grid-row: 2; }
+      .hero__visual      { order: 0; grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+    }
+    .hero__eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); font-weight: 600;
+      color: var(--color-purple-soft); letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero__eyebrow::before {
+      content: ''; display: block; width: 24px; height: 2px;
+      background: currentColor; border-radius: var(--radius-full);
+    }
+    .hero__heading {
+      font-size: var(--text-3xl); font-weight: 800;
+      color: var(--color-purple-deep); letter-spacing: -0.02em; line-height: 1.08;
+    }
+    .hero__heading em {
+      font-style: normal; color: var(--color-purple-soft);
+      position: relative; display: inline-block;
+    }
+    .hero__heading em::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-purple-soft), var(--color-lavender));
+      border-radius: var(--radius-full);
+    }
+    .hero__sub {
+      font-size: var(--text-base); font-weight: 400;
+      color: var(--color-text-muted); line-height: 1.75; max-width: 48ch;
+    }
+    .hero__bullets { display: flex; flex-direction: column; gap: var(--space-3); list-style: none; }
+    .hero__bullet {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      font-size: var(--text-sm); color: var(--color-text);
+      font-weight: 500; line-height: 1.5;
+    }
+    .hero__bullet-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: var(--radius-full);
+      background: var(--color-lavender); flex-shrink: 0;
+      font-size: 0.875rem; margin-top: 1px;
+    }
+    /* ─── SHIMMER HERO BUTTON ───────────────────────────── */
+    .hero__cta-link {
+      display: block; text-decoration: none;
+      position: relative; overflow: hidden;
+      background: linear-gradient(90deg, #7B5EA7 0%, #B06CD4 35%, #E178C0 60%, #7B5EA7 100%);
+      background-size: 200% 100%;
+      border-radius: 14px;
+      padding: 18px 32px;
+      text-align: center;
+      font-family: var(--font-main);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 24px rgba(123,94,167,0.45), 0 1px 4px rgba(0,0,0,0.15);
+      animation: shimmer-btn 2.6s ease-in-out infinite;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .hero__cta-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(176,108,212,0.55), 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .hero__cta-link:active { transform: translateY(0); }
+    .hero__cta-link::after {
+      content: "";
+      position: absolute; top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+      animation: shimmer-sweep 2.6s ease-in-out infinite;
+    }
+    @keyframes shimmer-btn {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes shimmer-sweep {
+      0%   { left: -75%; }
+      60%  { left: 130%; }
+      100% { left: 130%; }
+    }
+
+    .cta-placeholder {
+      height: 80px; border: 2px dashed var(--color-lavender-mid);
+      border-radius: var(--radius-lg); display: flex;
+      align-items: center; justify-content: center;
+      color: var(--color-text-faint); font-size: var(--text-xs);
+      font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+      background: var(--color-purple-pale); user-select: none;
+    }
+    .hero__trust {
+      display: flex; flex-wrap: wrap;
+      align-items: center; gap: var(--space-4);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500;
+    }
+    .trust-divider { width: 1px; height: 16px; background: var(--color-border); }
+
+    /* Hero visual */
+    .hero__visual { position: relative; }
+    .hero__visual-wrap { position: relative; border-radius: var(--radius-xl); overflow: visible; }
+    .blur-circle {
+      position: absolute; border-radius: var(--radius-full);
+      pointer-events: none; z-index: 0; filter: blur(60px); opacity: 0.55;
+    }
+    .blur-circle--1 { width: 280px; height: 280px; background: #C4B0E0; top: -40px; right: -30px; }
+    .blur-circle--2 { width: 200px; height: 200px; background: #A78CD6; bottom: -30px; left: -20px; }
+    .blur-circle--3 { width: 140px; height: 140px; background: #E2D9F0; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .mockup-card {
+      position: relative; z-index: 1;
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+      overflow: hidden; aspect-ratio: 9/13;
+      background: #1A0F35;
+    }
+    .mockup-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mockup-card:hover img { transform: scale(1.03); }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .chip {
+      position: absolute; z-index: 2; background: var(--color-surface);
+      border: 1px solid var(--color-border); border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4);
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); font-weight: 600; color: var(--color-purple-deep);
+      box-shadow: var(--shadow-md); white-space: nowrap;
+      animation: chipFloat var(--chip-dur,5s) ease-in-out infinite;
+      animation-delay: var(--chip-delay,0s);
+    }
+    .chip--1 { top: 14%; left: -8%; --chip-dur: 5.5s; --chip-delay: 0s; }
+    .chip--2 { top: 38%; right: -9%; --chip-dur: 4.8s; --chip-delay: .8s; }
+    .chip--3 { bottom: 18%; left: -6%; --chip-dur: 6s;  --chip-delay: 1.5s; }
+    @keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @media (max-width: 899px) { .chip { display: none; } }
+
+    /* ─── SECTION 2: WHY BLACK ───────────────────────────────────── */
+    .why-black__inner {
+      display: grid; grid-template-columns: 1fr;
+      gap: var(--space-12); align-items: start;
+    }
+    @media (min-width: 900px) {
+      .why-black__inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+    }
+    .why-black__philosophy {
+      background: var(--color-purple-deep); color: #fff;
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .why-black__recipe-label {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--color-lavender-mid);
+    }
+    .why-black__recipe-title {
+      font-size: var(--text-xl); font-weight: 800; color: #fff;
+      line-height: 1.2;
+    }
+    .why-black__recipe-desc {
+      font-size: var(--text-sm); color: rgba(255,255,255,0.7); line-height: 1.75;
+    }
+    .why-black__fact {
+      background: rgba(255,255,255,0.08); border-radius: var(--radius-lg);
+      padding: var(--space-5); border: 1px solid rgba(255,255,255,0.12);
+    }
+    .why-black__fact-text {
+      font-size: var(--text-sm); color: rgba(255,255,255,0.85);
+      line-height: 1.65; font-style: italic;
+    }
+
+    /* Ingredients grid */
+    .ingredients-col { display: flex; flex-direction: column; gap: var(--space-5); }
+    .ingredients-col .section-eyebrow { color: var(--color-purple-soft); }
+    .ingredients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-3);
+    }
+    .ingredient-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); padding: var(--space-4);
+      display: flex; flex-direction: column; gap: var(--space-2);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .ingredient-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-2px);
+    }
+    .ingredient-card__icon { font-size: 1.5rem; }
+    .ingredient-card__name {
+      font-size: var(--text-xs); font-weight: 700;
+      color: var(--color-purple-deep); line-height: 1.3;
+    }
+    .ingredient-card__benefit {
+      font-size: 0.7rem; color: var(--color-text-muted);
+      line-height: 1.4; font-weight: 500;
+    }
+    .ingredients-note {
+      font-size: var(--text-xs); color: var(--color-text-muted);
+      line-height: 1.65; background: var(--color-purple-pale);
+      border-radius: var(--radius-lg); padding: var(--space-4);
+      border-left: 3px solid var(--color-purple-soft);
+    }
+    .allergen-notice {
+      margin-top: var(--space-3);
+      font-size: var(--text-xs); color: #5a3a1a;
+      line-height: 1.65; background: #fff8ee;
+      border-radius: var(--radius-lg); padding: var(--space-4);
+      border-left: 3px solid #e09a3a;
+    }
+    .allergen-notice strong { color: #a05c00; }
+
+    /* ─── SECTION 3: HOW IT WORKS ────────────────────────────────── */
+    .how__header { text-align: center; margin-bottom: var(--space-12); }
+    .how__header .section-eyebrow { justify-content: center; }
+    .how__header .section-eyebrow::before { display: none; }
+    .how__header .section-sub { margin-inline: auto; text-align: center; }
+
+    .how__steps {
+      display: grid; grid-template-columns: 1fr;
+      gap: var(--space-6); max-width: 860px; margin-inline: auto;
+    }
+    @media (min-width: 640px) {
+      .how__steps { grid-template-columns: repeat(3, 1fr); }
+    }
+    .how__step {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: flex; flex-direction: column; gap: var(--space-4);
+      position: relative; text-align: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .how__step:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .how__step-num {
+      width: 44px; height: 44px; border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--color-purple-mid), var(--color-purple-soft));
+      color: #fff; font-size: var(--text-sm); font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin-inline: auto;
+    }
+    .how__step-icon { font-size: 2rem; }
+    .how__step-title {
+      font-size: var(--text-base); font-weight: 700;
+      color: var(--color-purple-deep);
+    }
+    .how__step-desc {
+      font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.65;
+    }
+
+    .how__science {
+      margin-top: var(--space-10);
+      max-width: 760px; margin-inline: auto;
+      background: var(--color-lavender);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: grid; gap: var(--space-4);
+    }
+    @media (min-width: 640px) {
+      .how__science { grid-template-columns: auto 1fr; align-items: start; gap: var(--space-6); }
+    }
+    .how__science-icon { font-size: 2.5rem; }
+    .how__science-text h3 {
+      font-size: var(--text-base); font-weight: 700;
+      color: var(--color-purple-deep); margin-bottom: var(--space-2);
+    }
+    .how__science-text p {
+      font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.7;
+    }
+
+    /* ─── SECTION 4: EXPERT ──────────────────────────────────────── */
+    .expert__inner {
+      display: grid; grid-template-columns: 1fr;
+      gap: var(--space-10); align-items: center;
+    }
+    @media (min-width: 860px) {
+      .expert__inner { grid-template-columns: 340px 1fr; gap: var(--space-16); }
+    }
+    .expert__photo-wrap { position: relative; }
+    .expert__photo-card {
+      border-radius: var(--radius-xl); aspect-ratio: 3/4;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-end;
+      padding: var(--space-6); box-shadow: var(--shadow-lg); overflow: hidden;
+      position: relative;
+    }
+    .expert__photo-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .expert__photo-name {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5);
+      text-align: center; width: 100%;
+    }
+    .expert__photo-name strong {
+      display: block; font-size: var(--text-sm); font-weight: 800;
+      color: var(--color-purple-deep); line-height: 1.3;
+    }
+    .expert__photo-name span {
+      font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500;
+    }
+    .expert__content { display: flex; flex-direction: column; gap: var(--space-6); }
+    .expert__quote {
+      font-size: var(--text-lg); font-weight: 600;
+      color: var(--color-purple-deep); line-height: 1.5;
+      border-left: 3px solid var(--color-purple-soft);
+      padding-left: var(--space-6); font-style: italic;
+    }
+    .expert__bio {
+      font-size: var(--text-base); color: var(--color-text-muted); line-height: 1.75;
+    }
+    .expert__stats {
+      display: flex; flex-wrap: wrap; gap: var(--space-4);
+    }
+    .expert__stat {
+      background: var(--color-lavender); border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5); flex: 1; min-width: 140px;
+    }
+    .expert__stat-num {
+      font-size: var(--text-xl); font-weight: 800;
+      color: var(--color-purple-deep); line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+    .expert__stat-label {
+      font-size: var(--text-xs); color: var(--color-text-muted);
+      font-weight: 500; line-height: 1.4;
+    }
+    .expert__creds {
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .expert__cred {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      font-size: var(--text-sm); color: var(--color-text); font-weight: 500;
+    }
+    .expert__cred-dot {
+      width: 6px; height: 6px; border-radius: var(--radius-full);
+      background: var(--color-purple-soft); flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* ─── SECTION 5: OFFER ───────────────────────────────────────── */
+    .offer__inner {
+      max-width: 900px; margin-inline: auto;
+      display: grid; grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    @media (min-width: 700px) {
+      .offer__inner { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+    .offer__card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: flex; flex-direction: column; gap: var(--space-5);
+      transition: background var(--transition);
+    }
+    .offer__card--featured {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      position: relative;
+    }
+    .offer__badge-best {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, #C8963C, #E5B85A);
+      color: #2D1B4E; font-size: var(--text-xs); font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: var(--space-1) var(--space-5); border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+    .offer__card-label {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+    .offer__price-block { display: flex; align-items: baseline; gap: var(--space-2); }
+    .offer__price {
+      font-size: var(--text-2xl); font-weight: 800; color: #fff; line-height: 1;
+    }
+    .offer__price-unit { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
+    .offer__price-total {
+      font-size: var(--text-sm); color: rgba(255,255,255,0.5);
+    }
+    .offer__price-save {
+      font-size: var(--text-xs); font-weight: 700;
+      color: #E5B85A; letter-spacing: 0.04em;
+    }
+    .offer__features { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+    .offer__feature {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      font-size: var(--text-sm); color: rgba(255,255,255,0.8); line-height: 1.45;
+    }
+    .offer__feature-check {
+      width: 20px; height: 20px; border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.12); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; margin-top: 1px;
+    }
+    .offer__cta-wrap {
+      height: 80px; border: 2px dashed rgba(255,255,255,0.25);
+      border-radius: var(--radius-lg); display: flex;
+      align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.3); font-size: var(--text-xs);
+      font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+      background: rgba(255,255,255,0.04); user-select: none;
+    }
+    .offer__guarantee {
+      grid-column: 1 / -1; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+    }
+    .offer__guarantee-icon { font-size: 2.5rem; }
+    .offer__guarantee-title {
+      font-size: var(--text-base); font-weight: 700; color: #fff;
+    }
+    .offer__guarantee-text {
+      font-size: var(--text-sm); color: rgba(255,255,255,0.6);
+      max-width: 50ch; line-height: 1.7;
+    }
+
+    /* ─── SECTION 6: FAQ ─────────────────────────────────────────── */
+    .faq__list {
+      max-width: var(--content-text); margin-inline: auto;
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .faq__item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .faq__question {
+      width: 100%; padding: var(--space-5) var(--space-6);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-4); cursor: pointer; border: none;
+      background: none; color: var(--color-purple-deep);
+      font-family: var(--font-body); font-size: var(--text-sm);
+      font-weight: 700; text-align: left; line-height: 1.4;
+      transition: background var(--transition);
+    }
+    .faq__question:hover { background: var(--color-purple-pale); }
+    .faq__arrow {
+      width: 20px; height: 20px; border-radius: var(--radius-full);
+      background: var(--color-lavender); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--transition);
+      font-size: 0.6rem; color: var(--color-purple-soft);
+    }
+    .faq__item.open .faq__arrow { transform: rotate(180deg); }
+    .faq__answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1), padding 0.3s;
+      padding: 0 var(--space-6);
+    }
+    .faq__item.open .faq__answer {
+      max-height: 400px; padding-bottom: var(--space-5);
+    }
+    .faq__answer p {
+      font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.75;
+    }
+
+
+    /* ─── PREORDER BUTTONS ───────────────────────────────────── */
+    .preorder-btn {
+      display: block; width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #9B6FD4 0%, #C47ED8 100%);
+      color: #fff; border: none; border-radius: 14px;
+      font-family: var(--font-main); font-size: var(--text-base);
+      font-weight: 700; letter-spacing: 0.01em;
+      cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 4px 20px rgba(155,111,212,0.45);
+      position: relative; overflow: hidden;
+    }
+    .preorder-btn::after {
+      content: "";
+      position: absolute; top: 0; left: -80%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+      animation: shimmer-sweep 3s ease-in-out infinite;
+    }
+    .preorder-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(155,111,212,0.6); }
+    .preorder-btn:active { transform: translateY(0); }
+    .preorder-btn--featured {
+      background: linear-gradient(135deg, #F5A623 0%, #F7C948 60%, #E9943A 100%);
+      box-shadow: 0 4px 20px rgba(245,166,35,0.5);
+      color: #3a2000;
+    }
+    .preorder-btn--featured:hover { box-shadow: 0 8px 28px rgba(245,166,35,0.65); }
+
+    /* ─── PREORDER MODAL ─────────────────────────────────────── */
+    .preorder-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(20,10,40,0.72); backdrop-filter: blur(4px);
+      z-index: 1000; align-items: center; justify-content: center;
+      padding: var(--space-4);
+    }
+    .preorder-overlay.is-open { display: flex; }
+    .preorder-modal {
+      background: #fff; border-radius: 20px;
+      padding: var(--space-8) var(--space-8);
+      max-width: 420px; width: 100%;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      position: relative; animation: modal-in 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(0.88) translateY(16px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .preorder-modal__close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.4rem; color: #9b9b9b; line-height: 1;
+      padding: 4px 8px; border-radius: 8px; transition: color 0.15s;
+    }
+    .preorder-modal__close:hover { color: #2D1B4E; }
+    .preorder-modal__tag {
+      display: inline-block; font-size: var(--text-xs);
+      font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+      color: #7B5EA7; background: #F0EAF8; padding: 4px 10px;
+      border-radius: 20px; margin-bottom: var(--space-3);
+    }
+    .preorder-modal h3 {
+      font-family: var(--font-main); font-size: var(--text-lg);
+      font-weight: 800; color: #2D1B4E;
+      margin: 0 0 var(--space-2);
+    }
+    .preorder-modal__sub {
+      font-size: var(--text-sm); color: #7a7a8a;
+      margin: 0 0 var(--space-6); line-height: 1.55;
+    }
+    .preorder-modal__field { margin-bottom: var(--space-4); }
+    .preorder-modal__field label {
+      display: block; font-size: var(--text-sm); font-weight: 600;
+      color: #2D1B4E; margin-bottom: var(--space-1);
+    }
+    .preorder-modal__field input {
+      width: 100%; box-sizing: border-box;
+      padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid #D6CDE8; font-family: var(--font-main);
+      font-size: var(--text-sm); color: #2D1B4E;
+      outline: none; transition: border-color 0.18s;
+    }
+    .preorder-modal__field input:focus { border-color: #7B5EA7; }
+    .preorder-modal__submit {
+      display: block; width: 100%;
+      padding: 15px 24px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #9B6FD4 0%, #C47ED8 100%);
+      color: #fff; font-family: var(--font-main); font-size: var(--text-base);
+      font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(155,111,212,0.4);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .preorder-modal__submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(155,111,212,0.55); }
+    .preorder-modal__submit--gold {
+      background: linear-gradient(135deg, #F5A623 0%, #F7C948 60%, #E9943A 100%);
+      color: #3a2000; box-shadow: 0 4px 18px rgba(245,166,35,0.45);
+    }
+    .preorder-modal__note {
+      text-align: center; margin-top: var(--space-3);
+      font-size: var(--text-xs); color: #9b9b9b; line-height: 1.5;
+    }
+    .preorder-modal__success {
+      display: none; text-align: center;
+      padding: var(--space-6) var(--space-4) var(--space-4);
+    }
+    .preorder-modal__success-heart {
+      width: 72px; height: 72px; margin: 0 auto var(--space-4);
+      background: linear-gradient(135deg, #E9E0F8 0%, #D4C3F0 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: heart-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes heart-pop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .preorder-modal__success-heart svg {
+      animation: heart-beat 1.2s ease-in-out 0.5s 2;
+    }
+    @keyframes heart-beat {
+      0%,100% { transform: scale(1); }
+      30%     { transform: scale(1.18); }
+      60%     { transform: scale(0.96); }
+    }
+    .preorder-modal__success-tag {
+      display: inline-block; font-size: var(--text-xs);
+      font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+      color: #7B5EA7; background: #F0EAF8; padding: 4px 12px;
+      border-radius: 20px; margin-bottom: var(--space-3);
+    }
+    .preorder-modal__success h3 {
+      font-family: var(--font-main); font-size: 1.35rem;
+      font-weight: 800; color: #2D1B4E;
+      margin: 0 0 var(--space-3); line-height: 1.25;
+    }
+    .preorder-modal__success-body {
+      font-size: var(--text-sm); color: #6a6a7a;
+      line-height: 1.65; margin: 0 0 var(--space-5);
+    }
+    .preorder-modal__success-body strong { color: #2D1B4E; }
+    .preorder-modal__success-divider {
+      border: none; border-top: 1px solid #EDE8F5;
+      margin: 0 0 var(--space-4);
+    }
+    .preorder-modal__success-note {
+      font-size: var(--text-xs); color: #a0a0b0; line-height: 1.55;
+    }
+    .preorder-modal__success-close {
+      margin-top: var(--space-4); display: block; width: 100%;
+      padding: 13px 24px; border: 1.5px solid #D6CDE8;
+      border-radius: 12px; background: transparent;
+      font-family: var(--font-main); font-size: var(--text-sm);
+      font-weight: 600; color: #7B5EA7; cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .preorder-modal__success-close:hover {
+      background: #F0EAF8; color: #2D1B4E;
+    }
+
+    /* ─── BAD DISCLAIMER ──────────────────────────────────────────── */
+    .bad-disclaimer {
+      background: #f5f0e8;
+      border-top: 1px solid #e0d8cc;
+      padding-block: var(--space-4);
+      font-size: var(--text-xs);
+      color: #6b5e4a;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    .footer {
+      background: var(--color-purple-deep); color: rgba(255,255,255,0.4);
+      padding-block: var(--space-8);
+    }
+    .footer__inner {
+      max-width: var(--content-wide); margin-inline: auto;
+      padding-inline: clamp(var(--space-5), 5vw, var(--space-12));
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--space-4);
+      font-size: var(--text-xs);
+    }
+    .footer__brand { color: rgba(255,255,255,0.7); font-weight: 600; }
+    .footer__legal { max-width: 60ch; line-height: 1.6; }
+
+    /* ─── PAGE BG BLOBS ──────────────────────────────────────────── */
+    .page-bg-blob {
+      position: fixed; pointer-events: none; z-index: -1;
+      border-radius: var(--radius-full); filter: blur(100px); opacity: 0.18;
+    }
+    .page-bg-blob--1 { width: 600px; height: 600px; background: #C4B0E0; top: -200px; right: -200px; }
+    .page-bg-blob--2 { width: 400px; height: 400px; background: #A78CD6; bottom: -100px; left: -150px; }
+
+    /* ─── DIVIDER ────────────────────────────────────────────────── */
+    .divider {
+      border: none; border-top: 1px solid var(--color-border);
+      max-width: var(--content-wide); margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg-blob page-bg-blob--1" aria-hidden="true"></div>
+<div class="page-bg-blob page-bg-blob--2" aria-hidden="true"></div>
+
+<!-- ════════════════════════════════════
+     HEADER
+════════════════════════════════════ -->
+<header class="header" role="banner">
+  <div class="header__inner">
+    <a href="/" class="logo" aria-label="Лекарь Вэй — на главную" data-ab="logo-link">
+      <svg class="logo__icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" fill="url(#logoGrad)"/>
+        <path d="M12 24 C12 18 16 13 18 12 C20 13 24 18 24 24" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M18 12 L18 24" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14.5 18.5 C15.5 16 17 15 18 15" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M21.5 18.5 C20.5 16 19 15 18 15" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B5EA7"/>
+            <stop offset="100%" stop-color="#2D1B4E"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="logo__text">
+        <span class="logo__name" data-ab="product-name" style="display:none">Лекарь Вэй</span>
+        <span class="logo__tagline" data-ab="logo-tagline">Код долголетия: новые силы</span>
+        <span class="logo__sub">Восстановление жизненного ресурса</span>
+      </span>
+    </a>
+    <div class="badge-natural" aria-label="100% Натурально">
+      <span class="badge-natural__dot" aria-hidden="true"></span>
+      100% Натурально
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 1: HERO
+════════════════════════════════════ -->
+<section class="hero" aria-label="Главный блок">
+  <!-- Верх: eyebrow + заголовок + подзаголовок (order 1 на мобайле) -->
+  <div class="hero__text-top">
+    <span class="hero__eyebrow">Мудрость китайской медицины</span>
+    <h1 class="hero__heading">
+      Просто добавьте<br>
+      в любое блюдо —<br>
+      и еда станет<br>
+      <em>источником молодости</em>
+    </h1>
+    <p class="hero__sub">
+      Восполнение жизненного ресурса. Фиолетовая смесь из 8 редких суперфудов по традиционному китайскому рецепту долголетия. Без смены рациона — просто ложка в привычное блюдо.
+    </p>
+  </div>
+
+  <!-- Низ: буллиты + CTA + trust (order 3 на мобайле, после мокапа) -->
+  <div class="hero__text-bottom">
+    <ul class="hero__bullets" role="list">
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">✨</span>
+        <span>Не нужно ничего менять — просто добавьте ложку в привычное блюдо</span>
+      </li>
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">💜</span>
+        <span>Удивите близких необычным фиолетовым цветом — как будто вы знаете какой-то особый секрет</span>
+      </li>
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">🌿</span>
+        <span>Энергия, волосы, суставы, память — всё в одной ложке каждый день</span>
+      </li>
+
+    </ul>
+    <a href="#offer" class="hero__cta-link">
+      Выбрать формат и заказать →
+    </a>
+    <div class="cta-placeholder" role="presentation" aria-hidden="true" style="display:none">
+      МЕСТО ДЛЯ КНОПКИ MOTTOR
+    </div>
+    <div class="hero__trust">
+      <div class="trust-item"><span>🇨🇳</span><span>Традиционная китайская медицина</span></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><span>🌱</span><span>Без сахара и добавок</span></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><span>🏭</span><span>Производство в России</span></div>
+    </div>
+  </div>
+
+  <div class="hero__visual" aria-label="Визуальный блок продукта">
+    <div class="hero__visual-wrap">
+      <div class="blur-circle blur-circle--1" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle--2" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle--3" aria-hidden="true"></div>
+      <div class="mockup-card">
+        <img src="https://s3.twcstorage.ru/52aecabe-lekarway/products/new-forces.jpg" alt="Лекарь Вэй — упаковка" data-ab="product-image" loading="eager" />
+      </div>
+      <div class="chip chip--1" aria-hidden="true"><span>⚡</span> Больше энергии</div>
+      <div class="chip chip--2" aria-hidden="true"><span>💎</span> Красота и молодость</div>
+      <div class="chip chip--3" aria-hidden="true"><span>🔬</span> Высокая усваиваемость</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════
+     ЭКРАН 2: ПОЧЕМУ ЧЁРНЫЙ + СОСТАВ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="why-black__inner">
+
+      <!-- Левая колонка: философия -->
+      <div>
+        <div class="why-black__philosophy">
+          <span class="why-black__recipe-label">Тысячелетняя традиция</span>
+          <h2 class="why-black__recipe-title" id="why-heading">Традиционный рецепт:<br>секрет долголетия Китая</h2>
+          <p class="why-black__recipe-desc">
+            В повседневной жизни мы почти не едим чёрные продукты — а между тем именно они, по учению традиционной китайской медицины, питают почки и управляют жизненной энергией Цзин — той самой, которая отвечает за долголетие, густоту волос, крепость костей и ясность ума.
+          </p>
+          <p class="why-black__recipe-desc">
+            Этот традиционный китайский рецепт в разных вариациях использовался в Китае сотни лет. Мы протестировали все версии, выбрали самый вкусный и эстетически красивый состав — и воспроизвели его на российском производстве.
+          </p>
+          <div class="why-black__fact">
+            <p class="why-black__fact-text">«Чёрный цвет в китайской медицине — цвет воды и почек, первоисточника жизненной силы. Регулярное употребление чёрных продуктов замедляет износ организма и наполняет тело глубинной энергией.»</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Правая колонка: состав -->
+      <div class="ingredients-col">
+        <span class="section-eyebrow">Состав</span>
+        <h2 class="section-heading" style="font-size:var(--text-xl)">8 ингредиентов,<br>которые редко попадают на стол</h2>
+        <div class="ingredients-grid">
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌑</div>
+            <div class="ingredient-card__name">Чёрный кунжут</div>
+            <div class="ingredient-card__benefit">Волосы, кожа, антиоксиданты</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🫐</div>
+            <div class="ingredient-card__name">Чёрные ягоды годжи</div>
+            <div class="ingredient-card__benefit">Зрение, иммунитет, антистарение</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌾</div>
+            <div class="ingredient-card__name">Чёрный рис</div>
+            <div class="ingredient-card__benefit">Антоцианы, здоровье сосудов</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌿</div>
+            <div class="ingredient-card__name">Чёрная пшеница</div>
+            <div class="ingredient-card__benefit">Обмен веществ, энергия</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🍇</div>
+            <div class="ingredient-card__name">Чёрная шелковица</div>
+            <div class="ingredient-card__benefit">Кровь, нервная система</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌰</div>
+            <div class="ingredient-card__name">Красные финики унаби</div>
+            <div class="ingredient-card__benefit">Железо, сердце, сон</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🪴</div>
+            <div class="ingredient-card__name">Семя льна</div>
+            <div class="ingredient-card__benefit">Омега-3, суставы, пищеварение</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🫘</div>
+            <div class="ingredient-card__name">Чёрные бобы</div>
+            <div class="ingredient-card__benefit">Белок, почки, суставы</div>
+          </div>
+        </div>
+        <p class="ingredients-note">
+          Часть ингредиентов в России не произрастает или не доступна в магазинах. Мы собрали все восемь в одну смесь, чтобы вы получали полный состав каждый день — без поиска и кулинарных усилий.
+        </p>
+        <div class="allergen-notice">
+          <strong>Аллергены:</strong> содержит <strong>ГЛЮТЕН</strong> (чёрная пшеница) и <strong>ЧЁРНЫЙ КУНЖУТ</strong>. Может содержать следы других аллергенов. ТР ТС 022/2011.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════
+     ЭКРАН 3: КАК ЭТО РАБОТАЕТ
+════════════════════════════════════ -->
+<section class="section section--alt" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="how__header">
+      <span class="section-eyebrow">Просто как утренний чай</span>
+      <h2 class="section-heading" id="how-heading">Простой ежедневный вклад в ваше долголетие</h2>
+      <p class="section-sub">Никаких новых привычек и изменений рациона. Смесь встраивается в то, что вы уже готовите.</p>
+    </div>
+
+    <div class="how__steps">
+      <div class="how__step">
+        <div class="how__step-num">1</div>
+        <div class="how__step-icon">🥄</div>
+        <div class="how__step-title">Отмерьте ложку</div>
+        <p class="how__step-desc">Одна чайная ложка смеси в день — суточная норма. Больше не нужно.</p>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">2</div>
+        <div class="how__step-icon">🥣</div>
+        <div class="how__step-title">Добавьте в блюдо</div>
+        <p class="how__step-desc">Каша, йогурт, блинчики, смузи — смесь хорошо растворяется и не перебивает вкус. Дарит красивый фиолетовый цвет.</p>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">3</div>
+        <div class="how__step-icon">✨</div>
+        <div class="how__step-title">Наслаждайтесь каждый день</div>
+        <p class="how__step-desc">Эффект накопительный. Результат индивидуален и зависит от особенностей организма и образа жизни.</p>
+      </div>
+    </div>
+
+    <div class="how__science">
+      <div class="how__science-icon">🔬</div>
+      <div class="how__science-text">
+        <h3>Тонкий помол — почему это важно</h3>
+        <p>Обычные зёрна и бобы усваиваются организмом лишь частично: плотная оболочка снижает доступность питательных веществ. Все ингредиенты смеси измельчены до мелкодисперсного порошка — это улучшает их растворимость и удобство использования. Плюс смесь легко растворяется в любом блюде и не оставляет неприятного осадка.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 4: ЭКСПЕРТ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="expert-heading">
+  <div class="container">
+    <div class="expert__inner">
+
+      <div class="expert__photo-wrap">
+        <div class="expert__photo-card">
+          <img src="https://s3.twcstorage.ru/52aecabe-lekarway/doctorstarkova/doctor.png" alt="Ирина Леонидовна Старкова — врач китайской медицины" loading="lazy" />
+          <div class="expert__photo-name">
+            <strong>Ирина Леонидовна Старкова</strong>
+            <span>Врач китайской медицины, рефлексотерапевт</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="expert__content">
+        <span class="section-eyebrow">Кто создал продукт</span>
+        <h2 class="section-heading" id="expert-heading">За рецептом стоит<br>врач с 35-летним опытом</h2>
+        <blockquote class="expert__quote">
+          «Я искала способ дать своим пациентам и ученикам то, что работает каждый день — без усилий, без таблеток, без перестройки жизни. Это мудрость, проверенная временем. Это не мода — то, чем лечились и продлевали жизнь тысячи лет.»
+        </blockquote>
+        <p class="expert__bio">
+          Ирина Леонидовна — врач традиционной китайской и классической медицины, рефлексотерапевт. Именно она стала главным вдохновителем и научным руководителем разработки состава: тестировала все варианты рецепта в Китае, выбирала пропорции и добивалась максимальной усваиваемости.
+        </p>
+
+        <div class="expert__stats" role="list">
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">62 000</div>
+            <div class="expert__stat-label">экземпляров<br>изданных книг о здоровье</div>
+          </div>
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">десятки тыс.</div>
+            <div class="expert__stat-label">женщин занимаются<br>по её методике</div>
+          </div>
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">№1</div>
+            <div class="expert__stat-label">методика естественного<br>оздоровления</div>
+          </div>
+        </div>
+
+        <div class="expert__creds" role="list">
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Врач традиционной китайской медицины и рефлексотерапевт</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Врач классической медицины</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Автор книг и методик гимнастики и самомассажа — признаны лучшей методикой естественного оздоровления</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Производство реализовано на сертифицированном заводе в г. Пермь</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 5: ОФФЕР И ГАРАНТИЯ
+════════════════════════════════════ -->
+<section class="section section--dark" id="offer" aria-labelledby="offer-heading">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:var(--space-10)">
+      <span class="section-eyebrow">Попробуйте без риска</span>
+      <h2 class="section-heading" id="offer-heading">Выберите удобный формат</h2>
+      <p class="section-sub" style="margin-inline:auto; text-align:center">
+        Одна банка рассчитана на месяц при ежедневном применении
+      </p>
+    </div>
+
+    <div class="offer__inner">
+
+      <!-- Вариант 1: 1 месяц -->
+      <div class="offer__card">
+        <div class="offer__card-label">Попробовать</div>
+        <div class="offer__price-block">
+          <span class="offer__price">1 800 ₽</span>
+          <span class="offer__price-unit">/ мес</span>
+        </div>
+        <p class="offer__price-total">1 банка · 30 дней</p>
+        <ul class="offer__features">
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>1 банка смеси «<span data-ab="product-name">Лекарь Вэй</span>»</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Инструкция по применению</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Доставка по России</span>
+          </li>
+        </ul>
+        <div class="offer__cta-wrap" aria-hidden="true" style="display:none">МЕСТО ДЛЯ КНОПКИ MOTTOR</div>
+        <button class="preorder-btn" onclick="openPreorder(1)" type="button">
+          Предварительный заказ — 1 банка
+        </button>
+      </div>
+
+      <!-- Вариант 2: 3 месяца (featured) -->
+      <div class="offer__card offer__card--featured">
+        <div class="offer__badge-best">⭐ Рекомендуем</div>
+        <div class="offer__card-label">Полный курс</div>
+        <div class="offer__price-block">
+          <span class="offer__price">1 600 ₽</span>
+          <span class="offer__price-unit">/ мес</span>
+        </div>
+        <p class="offer__price-total">3 банки · 90 дней · Итого: 4 800 ₽</p>
+        <p class="offer__price-save">Экономия 600 ₽ по сравнению с розницей</p>
+        <ul class="offer__features">
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>3 банки смеси «<span data-ab="product-name">Лекарь Вэй</span>»</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Инструкция + план по неделям</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Доставка по России включена</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Полная гарантия возврата средств</span>
+          </li>
+        </ul>
+        <div class="offer__cta-wrap" aria-hidden="true" style="display:none">МЕСТО ДЛЯ КНОПКИ MOTTOR</div>
+        <button class="preorder-btn preorder-btn--featured" onclick="openPreorder(3)" type="button">
+          ⭐ Предварительный заказ — 3 банки
+        </button>
+      </div>
+
+      <!-- Гарантия -->
+      <div class="offer__guarantee">
+        <div class="offer__guarantee-icon">🛡️</div>
+        <p class="offer__guarantee-title">Качество под контролем</p>
+        <p class="offer__guarantee-text">
+          Если вас не устроило качество продукта — свяжитесь с нами в течение 14 дней с момента получения — мы оформим возврат без вопросов.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 6: FAQ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="faq-heading">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:var(--space-10)">
+      <span class="section-eyebrow" style="justify-content:center">Частые вопросы</span>
+      <h2 class="section-heading" id="faq-heading" style="text-align:center">Вопросы, которые возникают чаще всего</h2>
+    </div>
+    <div class="faq__list" role="list">
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Можно ли принимать при повышенном давлении или сахарном диабете?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>При наличии сахарного диабета, артериальной гипертензии или других хронических заболеваний обязательна консультация лечащего врача до начала приёма.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Через сколько времени почувствуется эффект?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Действие смеси накопительное. Результат индивидуален и зависит от особенностей организма, образа жизни и исходного состояния здоровья. Мы рекомендуем курс 3 месяца для регулярного использования.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          С чем лучше всего смешивать?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Смесь хорошо растворяется в тёплой каше, йогурте, кефире, смузи или молоке. Можно добавить в тесто для блинчиков или выпечки. Блюдо приобретает красивый фиолетовый оттенок. Избегайте кипятка — высокая температура разрушает часть антиоксидантов.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Как хранить смесь после вскрытия?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Храните банку в прохладном сухом месте, плотно закрытой. Не допускайте попадания влаги. Срок хранения после вскрытия — 3 месяца. Банки рассчитаны ровно на 30 дней при ежедневном применении.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Есть ли противопоказания?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Содержит глютен в составе чёрной пшеницы — не подходит при целиакии. Противопоказана при индивидуальной непереносимости любого из ингредиентов. Не рекомендуется во время беременности без консультации врача. Содержит чёрный кунжут — с осторожностью при ЖЦКБ и проблемах свёртываемости крови. Содержит ягоды годжи — с осторожностью при приёме варфарина и других антикоагулянтов (проконсультируйтесь с врачом). Содержит чёрные бобы — с осторожностью при подагре. Содержит семя льна — с осторожностью при приёме гормональных препаратов (проконсультируйтесь с врачом перед приёмом). При наличии серьёзных заболеваний ЖКТ — проконсультируйтесь с врачом.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ДИСКЛЕЙМЕР -->
+<div class="bad-disclaimer" role="note" aria-label="Информация о продукте">
+  <div class="container">
+    Не является лекарственным средством. Не является БАДом. Пищевой продукт. Перед применением проконсультируйтесь со специалистом.
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <span class="footer__brand" data-ab="product-name">Лекарь Вэй</span>
+    <p class="footer__legal">Не является лекарственным средством. Не является БАДом. Пищевой продукт. Перед применением проконсультируйтесь со специалистом. Производство: г. Пермь, Россия.</p>
+  </div>
+</footer>
+
+<script>
+  /* ══════════════════════════════════════════════════
+     АБ-ТЕСТ ПЕРЕМЕННЫЕ
+     Меняй здесь название и картинку для каждого варианта
+     ══════════════════════════════════════════════════ */
+  var AB = {
+    productName:  "Лекарь Вэй",
+    productImage: "https://s3.twcstorage.ru/52aecabe-lekarway/products/new-forces.jpg",
+    logoTagline:  "Код долголетия: новые силы"
+  };
+
+  /* Применяем переменные после загрузки DOM */
+  document.addEventListener("DOMContentLoaded", function () {
+    /* Название продукта */
+    document.querySelectorAll("[data-ab='product-name']").forEach(function (el) {
+      el.textContent = AB.productName;
+    });
+    /* Изображение продукта */
+    document.querySelectorAll("[data-ab='product-image']").forEach(function (el) {
+      el.src = AB.productImage;
+      el.alt = AB.productName + " — упаковка";
+    });
+    /* Подпись под логотипом */
+    document.querySelectorAll("[data-ab='logo-tagline']").forEach(function (el) {
+      el.textContent = AB.logoTagline;
+    });
+    /* Заголовок вкладки браузера */
+    document.title = AB.productName + " — Код долголетия: новые силы";
+    /* aria-label на ссылке-логотипе */
+    var logoLink = document.querySelector(".logo[aria-label]");
+    if (logoLink) logoLink.setAttribute("aria-label", AB.productName + " — на главную");
+  });
+</script>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq__item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+
+<!-- ════════════════════════════════════
+     PREORDER MODAL
+════════════════════════════════════ -->
+<div class="preorder-overlay" id="preorder-overlay" role="dialog" aria-modal="true" aria-labelledby="preorder-title">
+  <div class="preorder-modal" id="preorder-modal">
+    <button class="preorder-modal__close" onclick="closePreorder()" aria-label="Закрыть">&times;</button>
+
+    <!-- Form state -->
+    <div id="preorder-form-wrap">
+      <span class="preorder-modal__tag" id="preorder-tag">Предварительный заказ</span>
+      <h3 id="preorder-title">Оставьте заявку</h3>
+      <p class="preorder-modal__sub">Укажите имя и email — мы свяжемся с вами, как только откроем заказы, и предложим специальную цену.</p>
+      <form id="preorder-form" onsubmit="submitPreorder(event)">
+        <div class="preorder-modal__field">
+          <label for="preorder-name">Ваше имя</label>
+          <input type="text" id="preorder-name" name="name" placeholder="Ирина" autocomplete="given-name" required />
+        </div>
+        <div class="preorder-modal__field">
+          <label for="preorder-phone">Телефон</label>
+          <input type="tel" id="preorder-phone" name="phone" placeholder="+7 900 000 00 00" autocomplete="tel" required />
+        </div>
+        <div class="preorder-modal__field">
+          <label for="preorder-email">Email</label>
+          <input type="email" id="preorder-email" name="email" placeholder="your@email.ru" autocomplete="email" />
+        </div>
+        <button type="submit" class="preorder-modal__submit" id="preorder-submit">
+          Оставить заявку
+        </button>
+        <p class="preorder-modal__note">Без спама. Свяжемся только по вопросу заказа.</p>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="preorder-modal__success" id="preorder-success">
+
+      <div class="preorder-modal__success-heart" aria-hidden="true">
+        <svg width="34" height="32" viewBox="0 0 34 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 29.5C17 29.5 2 20.5 2 10.5C2 6.36 5.36 3 9.5 3C12.14 3 14.46 4.38 16 6.46C17.54 4.38 19.86 3 22.5 3C26.64 3 30 6.36 30 10.5C30 20.5 17 29.5 17 29.5Z" fill="url(#heartGrad)" stroke="none"/>
+          <defs>
+            <linearGradient id="heartGrad" x1="2" y1="3" x2="30" y2="29.5" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#C47ED8"/>
+              <stop offset="100%" stop-color="#7B5EA7"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <span class="preorder-modal__success-tag">Заявка принята</span>
+      <h3>Спасибо,<br>что доверяете нам!</h3>
+      <p class="preorder-modal__success-body">
+        Мы свяжемся с вами по
+        <strong id="preorder-email-shown"></strong>
+        как только откроем заказы —<br>
+        и предложим специальные условия для первых.
+      </p>
+
+      <button class="preorder-modal__success-close" onclick="closePreorder()">Закрыть</button>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Preorder modal ─────────────────────────────────────────── */
+  var _preorderQty = 1;
+
+  function openPreorder(qty) {
+    _preorderQty = qty || 1;
+    var overlay = document.getElementById('preorder-overlay');
+    var tag     = document.getElementById('preorder-tag');
+    var title   = document.getElementById('preorder-title');
+    var submit  = document.getElementById('preorder-submit');
+    var formWrap = document.getElementById('preorder-form-wrap');
+    var success  = document.getElementById('preorder-success');
+
+    // Reset to form state
+    formWrap.style.display = '';
+    success.style.display = 'none';
+    document.getElementById('preorder-form').reset();
+
+    // Customise for qty
+    if (qty === 3) {
+      tag.textContent   = 'Предварительный заказ · 3 банки';
+      title.textContent = 'Заявка на полный курс';
+      submit.textContent = '⭐ Оставить заявку на 3 банки';
+      submit.className  = 'preorder-modal__submit preorder-modal__submit--gold';
+    } else {
+      tag.textContent   = 'Предварительный заказ · 1 банка';
+      title.textContent = 'Заявка на 1 банку';
+      submit.textContent = 'Оставить заявку на 1 банку';
+      submit.className  = 'preorder-modal__submit';
+    }
+
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      document.getElementById('preorder-name').focus();
+    }, 80);
+  }
+
+  function closePreorder() {
+    document.getElementById('preorder-overlay').classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  document.getElementById('preorder-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePreorder();
+  });
+  // Close on Esc
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePreorder();
+  });
+
+  /* ── Google Sheets URL ─────────────────────────────────────────
+     Замени значение ниже на свой URL после деплоя Apps Script
+     ── ─────────────────────────────────────────────────────── */
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUmlaMhzRBdBSFND5a_wTouxZ3pIazvnu9FqUYD9VpZdq4J_OVvhTnNaAmEl7RkhQP/exec";
+
+  function submitPreorder(e) {
+    e.preventDefault();
+    var name  = document.getElementById('preorder-name').value.trim();
+    var phone = document.getElementById('preorder-phone').value.trim();
+    var email = document.getElementById('preorder-email').value.trim();
+    var btn   = document.getElementById('preorder-submit');
+
+    // Показываем загрузку
+    btn.disabled    = true;
+    btn.textContent = 'Отправляем…';
+
+    var payload = {
+      name:   name,
+      phone:  phone,
+      email:  email,
+      qty:    _preorderQty,
+      source: "lekar-wei-lp"
+    };
+
+    // Отправка в Google Sheets (no-cors — ответ непрозрачный, но запись пройдёт)
+    fetch(APPS_SCRIPT_URL, {
+      method:  "POST",
+      mode:    "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(payload)
+    }).catch(function() {
+      // Ошибку скрываем — всё равно показываем успех
+    }).finally(function() {
+      showPreorderSuccess(phone || email);
+    });
+  }
+
+  function showPreorderSuccess(contact) {
+    document.getElementById('preorder-email-shown').textContent = contact || '';
+    document.getElementById('preorder-form-wrap').style.display = 'none';
+
+    var successEl = document.getElementById('preorder-success');
+    successEl.style.display = 'block';
+
+    // Restart heart animation
+    var heart = successEl.querySelector('.preorder-modal__success-heart');
+    if (heart) {
+      heart.style.animation = 'none';
+      heart.offsetHeight; // reflow
+      heart.style.animation = '';
+    }
+    var heartSvg = successEl.querySelector('.preorder-modal__success-heart svg');
+    if (heartSvg) {
+      heartSvg.style.animation = 'none';
+      heartSvg.offsetHeight;
+      heartSvg.style.animation = '';
+    }
+  }
+</script>
+
+</body>
+</html>

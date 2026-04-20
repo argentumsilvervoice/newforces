@@ -1,0 +1,473 @@
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<div class="page-bg-blob page-bg-blob--1" aria-hidden="true"></div>
+<div class="page-bg-blob page-bg-blob--2" aria-hidden="true"></div>
+
+<!-- ════════════════════════════════════
+     HEADER
+════════════════════════════════════ -->
+<header class="header" role="banner">
+  <div class="header__inner">
+    <a href="/" class="logo" aria-label="Лекарь Вэй — на главную">
+      <svg class="logo__icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" fill="url(#logoGrad)"/>
+        <path d="M12 24 C12 18 16 13 18 12 C20 13 24 18 24 24" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M18 12 L18 24" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14.5 18.5 C15.5 16 17 15 18 15" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M21.5 18.5 C20.5 16 19 15 18 15" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B5EA7"/>
+            <stop offset="100%" stop-color="#2D1B4E"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="logo__text">
+        <span class="logo__name">Лекарь Вэй</span>
+        <span class="logo__tagline">Смесь долголетия</span>
+      </span>
+    </a>
+    <div class="badge-natural" aria-label="100% Натурально">
+      <span class="badge-natural__dot" aria-hidden="true"></span>
+      100% Натурально
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 1: HERO
+════════════════════════════════════ -->
+<section class="hero" aria-label="Главный блок">
+  <!-- Верх: eyebrow + заголовок + подзаголовок (order 1 на мобайле) -->
+  <div class="hero__text-top">
+    <span class="hero__eyebrow">Мудрость китайской медицины</span>
+    <h1 class="hero__heading">
+      Просто добавьте<br>
+      в любое блюдо —<br>
+      и еда станет<br>
+      <em>источником молодости</em>
+    </h1>
+    <p class="hero__sub">
+      Фиолетовая смесь из 8 редких суперфудов по традиционному китайскому рецепту «5 чёрных». Без смены рациона. Ложка в кашу — и блинчики становятся источником энергии, красоты и долголетия.
+    </p>
+  </div>
+
+  <!-- Низ: буллиты + CTA + trust (order 3 на мобайле, после мокапа) -->
+  <div class="hero__text-bottom">
+    <ul class="hero__bullets" role="list">
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">✨</span>
+        <span>Не нужно ничего менять — просто добавьте ложку в привычное блюдо</span>
+      </li>
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">💜</span>
+        <span>Удивите близких необычным фиолетовым цветом — как будто вы знаете секрет</span>
+      </li>
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">🌿</span>
+        <span>Энергия, волосы, суставы, память — всё в одной ложке каждый день</span>
+      </li>
+      <li class="hero__bullet">
+        <span class="hero__bullet-icon" aria-hidden="true">☯️</span>
+        <span>Легко растворяется, приятный ореховый аромат, без сахара</span>
+      </li>
+    </ul>
+    <div class="cta-placeholder" role="presentation" aria-hidden="true">
+      МЕСТО ДЛЯ КНОПКИ MOTTOR
+    </div>
+    <div class="hero__trust">
+      <div class="trust-item"><span>🇨🇳</span><span>Традиционная китайская медицина</span></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><span>🌱</span><span>Без сахара и добавок</span></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><span>🏭</span><span>Производство в Перми</span></div>
+    </div>
+  </div>
+
+  <div class="hero__visual" aria-label="Визуальный блок продукта">
+    <div class="hero__visual-wrap">
+      <div class="blur-circle blur-circle--1" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle--2" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle--3" aria-hidden="true"></div>
+      <div class="mockup-card">
+        <img src="mockup.jpg" alt="Лекарь Вэй — Смесь долголетия, тёмная стеклянная банка с этикеткой" loading="eager" />
+      </div>
+      <div class="chip chip--1" aria-hidden="true"><span>⚡</span> Больше энергии</div>
+      <div class="chip chip--2" aria-hidden="true"><span>💎</span> Красота и молодость</div>
+      <div class="chip chip--3" aria-hidden="true"><span>🔬</span> Высокая усваиваемость</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════
+     ЭКРАН 2: ПОЧЕМУ ЧЁРНЫЙ + СОСТАВ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="why-black__inner">
+
+      <!-- Левая колонка: философия -->
+      <div>
+        <div class="why-black__philosophy">
+          <span class="why-black__recipe-label">Тысячелетняя традиция</span>
+          <h2 class="why-black__recipe-title" id="why-heading">Рецепт «5 чёрных»:<br>секрет долголетия Китая</h2>
+          <p class="why-black__recipe-desc">
+            В повседневной жизни мы почти не едим чёрные продукты — а между тем именно они, по учению традиционной китайской медицины, питают почки и управляют жизненной энергией Цзин — той самой, которая отвечает за долголетие, густоту волос, крепость костей и ясность ума.
+          </p>
+          <p class="why-black__recipe-desc">
+            Традиционный рецепт «5 чёрных» в разных вариациях использовался в Китае сотни лет. Мы протестировали все версии, выбрали самый вкусный и эстетически красивый состав — и воспроизвели его на российском производстве.
+          </p>
+          <div class="why-black__fact">
+            <p class="why-black__fact-text">«Чёрный цвет в китайской медицине — цвет воды и почек, первоисточника жизненной силы. Регулярное употребление чёрных продуктов замедляет износ организма и наполняет тело глубинной энергией.»</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Правая колонка: состав -->
+      <div class="ingredients-col">
+        <span class="section-eyebrow">Состав</span>
+        <h2 class="section-heading" style="font-size:var(--text-xl)">8 ингредиентов,<br>которые трудно есть каждый день</h2>
+        <div class="ingredients-grid">
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌑</div>
+            <div class="ingredient-card__name">Чёрный кунжут</div>
+            <div class="ingredient-card__benefit">Волосы, кожа, антиоксиданты</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🫐</div>
+            <div class="ingredient-card__name">Чёрные ягоды годжи</div>
+            <div class="ingredient-card__benefit">Зрение, иммунитет, антистарение</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌾</div>
+            <div class="ingredient-card__name">Чёрный рис</div>
+            <div class="ingredient-card__benefit">Антоцианы, здоровье сосудов</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌿</div>
+            <div class="ingredient-card__name">Чёрная пшеница</div>
+            <div class="ingredient-card__benefit">Обмен веществ, энергия</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🍇</div>
+            <div class="ingredient-card__name">Чёрная шелковица</div>
+            <div class="ingredient-card__benefit">Кровь, нервная система</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🌰</div>
+            <div class="ingredient-card__name">Красные финики унаби</div>
+            <div class="ingredient-card__benefit">Железо, сердце, сон</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🪴</div>
+            <div class="ingredient-card__name">Семя льна</div>
+            <div class="ingredient-card__benefit">Омега-3, суставы, пищеварение</div>
+          </div>
+          <div class="ingredient-card">
+            <div class="ingredient-card__icon">🫘</div>
+            <div class="ingredient-card__name">Чёрные бобы</div>
+            <div class="ingredient-card__benefit">Белок, почки, суставы</div>
+          </div>
+        </div>
+        <p class="ingredients-note">
+          Часть ингредиентов в России не произрастает или не доступна в магазинах. Мы собрали все восемь в одну смесь, чтобы вы получали полный состав каждый день — без поиска и кулинарных усилий.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════
+     ЭКРАН 3: КАК ЭТО РАБОТАЕТ
+════════════════════════════════════ -->
+<section class="section section--alt" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="how__header">
+      <span class="section-eyebrow">Просто как утренний чай</span>
+      <h2 class="section-heading" id="how-heading">Три шага к ежедневному долголетию</h2>
+      <p class="section-sub">Никаких новых привычек и изменений рациона. Смесь встраивается в то, что вы уже готовите.</p>
+    </div>
+
+    <div class="how__steps">
+      <div class="how__step">
+        <div class="how__step-num">1</div>
+        <div class="how__step-icon">🥄</div>
+        <div class="how__step-title">Отмерьте ложку</div>
+        <p class="how__step-desc">Одна чайная ложка смеси в день — суточная норма. Больше не нужно.</p>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">2</div>
+        <div class="how__step-icon">🥣</div>
+        <div class="how__step-title">Добавьте в блюдо</div>
+        <p class="how__step-desc">Каша, йогурт, блинчики, смузи — смесь хорошо растворяется и не перебивает вкус. Дарит красивый фиолетовый цвет.</p>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">3</div>
+        <div class="how__step-icon">✨</div>
+        <div class="how__step-title">Наслаждайтесь каждый день</div>
+        <p class="how__step-desc">Эффект накопительный. Большинство замечают изменения в самочувствии и внешнем виде уже через 3–4 недели.</p>
+      </div>
+    </div>
+
+    <div class="how__science">
+      <div class="how__science-icon">🔬</div>
+      <div class="how__science-text">
+        <h3>Расщепление до клеточного уровня — почему это важно</h3>
+        <p>Обычные зёрна и бобы усваиваются организмом лишь частично — плотная клеточная стенка не пропускает питательные вещества. В нашей смеси все ингредиенты измельчены до состояния, при котором активные вещества легко проникают в клетку. Это значит: меньше порция — больше пользы. Плюс смесь легко растворяется в любом блюде и не оставляет неприятного осадка.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 4: ЭКСПЕРТ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="expert-heading">
+  <div class="container">
+    <div class="expert__inner">
+
+      <div class="expert__photo-wrap">
+        <div class="expert__photo-card">
+          <img src="https://s3.twcstorage.ru/52aecabe-lekarway/doctorstarkova/doctor.png" alt="Ирина Леонидовна Старкова — врач китайской медицины" loading="lazy" />
+          <div class="expert__photo-name">
+            <strong>Ирина Леонидовна Старкова</strong>
+            <span>Врач китайской медицины, рефлексотерапевт</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="expert__content">
+        <span class="section-eyebrow">Кто создал продукт</span>
+        <h2 class="section-heading" id="expert-heading">За рецептом стоит<br>врач с 30-летним опытом</h2>
+        <blockquote class="expert__quote">
+          «Я искала способ дать своим пациенткам то, что работает каждый день — без усилий, без таблеток, без перестройки жизни. "5 чёрных" — это не мода. Это то, чем лечились и продлевали жизнь тысячи лет.»
+        </blockquote>
+        <p class="expert__bio">
+          Ирина Леонидовна — врач традиционной китайской и классической медицины, рефлексотерапевт. Именно она стала главным вдохновителем и научным руководителем разработки состава: тестировала все варианты рецепта в Китае, выбирала пропорции и добивалась максимальной усваиваемости.
+        </p>
+
+        <div class="expert__stats" role="list">
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">62 000</div>
+            <div class="expert__stat-label">экземпляров<br>изданных книг о здоровье</div>
+          </div>
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">десятки тыс.</div>
+            <div class="expert__stat-label">женщин занимаются<br>по её методике</div>
+          </div>
+          <div class="expert__stat" role="listitem">
+            <div class="expert__stat-num">№1</div>
+            <div class="expert__stat-label">методика естественного<br>оздоровления</div>
+          </div>
+        </div>
+
+        <div class="expert__creds" role="list">
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Врач традиционной китайской медицины и рефлексотерапевт</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Врач классической медицины</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Автор книг и методик гимнастики и самомассажа — признаны лучшей методикой естественного оздоровления</span>
+          </div>
+          <div class="expert__cred" role="listitem">
+            <span class="expert__cred-dot" aria-hidden="true"></span>
+            <span>Производство реализовано на сертифицированном заводе в г. Пермь</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 5: ОФФЕР И ГАРАНТИЯ
+════════════════════════════════════ -->
+<section class="section section--dark" aria-labelledby="offer-heading">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:var(--space-10)">
+      <span class="section-eyebrow">Попробуйте без риска</span>
+      <h2 class="section-heading" id="offer-heading">Выберите удобный формат</h2>
+      <p class="section-sub" style="margin-inline:auto; text-align:center">
+        Одна банка рассчитана на месяц при ежедневном применении
+      </p>
+    </div>
+
+    <div class="offer__inner">
+
+      <!-- Вариант 1: 1 месяц -->
+      <div class="offer__card">
+        <div class="offer__card-label">Попробовать</div>
+        <div class="offer__price-block">
+          <span class="offer__price">1 800 ₽</span>
+          <span class="offer__price-unit">/ мес</span>
+        </div>
+        <p class="offer__price-total">1 банка · 30 дней</p>
+        <ul class="offer__features">
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>1 банка смеси «5 чёрных»</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Инструкция по применению</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Доставка по России</span>
+          </li>
+        </ul>
+        <div class="offer__cta-wrap" aria-hidden="true">МЕСТО ДЛЯ КНОПКИ MOTTOR</div>
+      </div>
+
+      <!-- Вариант 2: 3 месяца (featured) -->
+      <div class="offer__card offer__card--featured">
+        <div class="offer__badge-best">⭐ Рекомендуем</div>
+        <div class="offer__card-label">Полный курс</div>
+        <div class="offer__price-block">
+          <span class="offer__price">1 600 ₽</span>
+          <span class="offer__price-unit">/ мес</span>
+        </div>
+        <p class="offer__price-total">3 банки · 90 дней</p>
+        <p class="offer__price-save">Экономия 600 ₽</p>
+        <ul class="offer__features">
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>3 банки смеси «5 чёрных»</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Инструкция + план по неделям</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Доставка по России включена</span>
+          </li>
+          <li class="offer__feature">
+            <span class="offer__feature-check">✓</span>
+            <span>Полная гарантия возврата средств</span>
+          </li>
+        </ul>
+        <div class="offer__cta-wrap" aria-hidden="true">МЕСТО ДЛЯ КНОПКИ MOTTOR</div>
+      </div>
+
+      <!-- Гарантия -->
+      <div class="offer__guarantee">
+        <div class="offer__guarantee-icon">🛡️</div>
+        <p class="offer__guarantee-title">Гарантия результата — 90 дней</p>
+        <p class="offer__guarantee-text">
+          Попробуйте курс 3 месяца. Если вы не почувствуете никакого изменения в самочувствии, энергии или внешнем виде — мы вернём деньги полностью. Без вопросов.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ЭКРАН 6: FAQ
+════════════════════════════════════ -->
+<section class="section" aria-labelledby="faq-heading">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:var(--space-10)">
+      <span class="section-eyebrow" style="justify-content:center">Частые вопросы</span>
+      <h2 class="section-heading" id="faq-heading" style="text-align:center">Вопросы, которые возникают чаще всего</h2>
+    </div>
+    <div class="faq__list" role="list">
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Можно ли принимать при повышенном давлении или сахарном диабете?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Состав смеси полностью растительный, без сахара, искусственных добавок и стимуляторов. Большинство ингредиентов традиционно используются при таких состояниях в китайской медицине. Тем не менее при хронических заболеваниях рекомендуем проконсультироваться с лечащим врачом перед началом приёма.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Через сколько времени почувствуется эффект?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Действие смеси накопительное. Первые изменения — больше энергии по утрам, лучший сон — большинство замечают через 2–3 недели регулярного приёма. Видимые изменения волос и кожи, как правило, проявляются к концу первого месяца. Мы рекомендуем курс 3 месяца для стойкого долгосрочного эффекта.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          С чем лучше всего смешивать?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Смесь хорошо растворяется в тёплой каше, йогурте, кефире, смузи или молоке. Можно добавить в тесто для блинчиков или выпечки. Блюдо приобретает красивый фиолетовый оттенок. Избегайте кипятка — высокая температура разрушает часть антиоксидантов.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Как хранить смесь после вскрытия?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Храните банку в прохладном сухом месте, плотно закрытой. Не допускайте попадания влаги. Срок хранения после вскрытия — 3 месяца. Банки рассчитаны ровно на 30 дней при ежедневном применении.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false">
+          Есть ли противопоказания?
+          <span class="faq__arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="faq__answer">
+          <p>Смесь не содержит орехов, глютена в значимых количествах и искусственных добавок. Противопоказана при индивидуальной непереносимости любого из ингредиентов. Не рекомендуется во время беременности без консультации врача. При наличии серьёзных заболеваний ЖКТ — проконсультируйтесь с врачом.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <span class="footer__brand">Лекарь Вэй</span>
+    <p class="footer__legal">Продукт является пищевой добавкой и не является лекарственным средством. Перед применением проконсультируйтесь со специалистом. Производство: г. Пермь, Россия.</p>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq__item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
