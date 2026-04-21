@@ -803,6 +803,123 @@
       background: #F0EAF8; color: #2D1B4E;
     }
 
+    /* ─── FAQ ASK BUTTON ────────────────────────────────────────── */
+    .faq__ask-wrap {
+      text-align: center; margin-top: var(--space-10);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--color-lavender-mid);
+    }
+    .faq__ask-prompt {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      margin: 0 0 var(--space-4);
+    }
+    .faq__ask-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 14px 32px;
+      background: transparent;
+      border: 2px solid var(--color-purple-soft);
+      border-radius: 14px;
+      font-family: var(--font-main); font-size: var(--text-base);
+      font-weight: 700; color: var(--color-purple-soft);
+      cursor: pointer; transition: background 0.18s, color 0.18s, transform 0.18s;
+    }
+    .faq__ask-btn::before { content: "✉️"; font-size: 1.1em; }
+    .faq__ask-btn:hover {
+      background: var(--color-purple-soft); color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ─── QUESTION MODAL ─────────────────────────────────────────── */
+    .question-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(20,10,40,0.72); backdrop-filter: blur(4px);
+      z-index: 1000; align-items: center; justify-content: center;
+      padding: var(--space-4);
+    }
+    .question-overlay.is-open { display: flex; }
+    .question-modal {
+      background: #fff; border-radius: 20px;
+      padding: var(--space-8);
+      max-width: 420px; width: 100%;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      position: relative; animation: modal-in 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .question-modal__close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.4rem; color: #9b9b9b; line-height: 1;
+      padding: 4px 8px; border-radius: 8px; transition: color 0.15s;
+    }
+    .question-modal__close:hover { color: #2D1B4E; }
+    .question-modal__tag {
+      display: inline-block; font-size: var(--text-xs);
+      font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+      color: #7B5EA7; background: #F0EAF8; padding: 4px 10px;
+      border-radius: 20px; margin-bottom: var(--space-3);
+    }
+    .question-modal h3 {
+      font-family: var(--font-main); font-size: var(--text-lg);
+      font-weight: 800; color: #2D1B4E;
+      margin: 0 0 var(--space-2);
+    }
+    .question-modal__sub {
+      font-size: var(--text-sm); color: #7a7a8a;
+      margin: 0 0 var(--space-5); line-height: 1.55;
+    }
+    .question-modal__field { margin-bottom: var(--space-4); }
+    .question-modal__field label {
+      display: block; font-size: var(--text-sm); font-weight: 600;
+      color: #2D1B4E; margin-bottom: var(--space-1);
+    }
+    .question-modal__field input,
+    .question-modal__field textarea {
+      width: 100%; box-sizing: border-box;
+      padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid #D6CDE8; font-family: var(--font-main);
+      font-size: var(--text-sm); color: #2D1B4E;
+      outline: none; transition: border-color 0.18s;
+      resize: vertical;
+    }
+    .question-modal__field input:focus,
+    .question-modal__field textarea:focus { border-color: #7B5EA7; }
+    .question-modal__submit {
+      display: block; width: 100%;
+      padding: 15px 24px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #9B6FD4 0%, #C47ED8 100%);
+      color: #fff; font-family: var(--font-main); font-size: var(--text-base);
+      font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(155,111,212,0.4);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .question-modal__submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(155,111,212,0.55); }
+    .question-modal__success {
+      display: none; text-align: center;
+      padding: var(--space-6) var(--space-4) var(--space-4);
+    }
+    .question-modal__success-heart {
+      width: 64px; height: 64px; margin: 0 auto var(--space-4);
+      background: linear-gradient(135deg, #E9E0F8 0%, #D4C3F0 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: heart-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .question-modal__success h3 {
+      font-family: var(--font-main); font-size: 1.25rem;
+      font-weight: 800; color: #2D1B4E; margin: 0 0 var(--space-3);
+    }
+    .question-modal__success p {
+      font-size: var(--text-sm); color: #6a6a7a; line-height: 1.65; margin: 0 0 var(--space-5);
+    }
+    .question-modal__success-close {
+      display: block; width: 100%;
+      padding: 13px 24px; border: 1.5px solid #D6CDE8;
+      border-radius: 12px; background: transparent;
+      font-family: var(--font-main); font-size: var(--text-sm);
+      font-weight: 600; color: #7B5EA7; cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .question-modal__success-close:hover { background: #F0EAF8; color: #2D1B4E; }
+
     /* ─── BAD DISCLAIMER ──────────────────────────────────────────── */
     .bad-disclaimer {
       background: #f5f0e8;
@@ -1294,6 +1411,15 @@
       </div>
 
     </div>
+
+    <!-- Кнопка «Задать вопрос» -->
+    <div class="faq__ask-wrap">
+      <p class="faq__ask-prompt">Не нашли ответ на свой вопрос?</p>
+      <button class="faq__ask-btn" onclick="openQuestion()" type="button">
+        Задать вопрос
+      </button>
+    </div>
+
   </div>
 </section>
 
@@ -1542,6 +1668,111 @@
       heartSvg.offsetHeight;
       heartSvg.style.animation = '';
     }
+  }
+</script>
+
+<!-- ════════════════════════════════════
+     QUESTION MODAL
+════════════════════════════════════ -->
+<div class="question-overlay" id="question-overlay" role="dialog" aria-modal="true" aria-labelledby="question-title">
+  <div class="question-modal" id="question-modal">
+    <button class="question-modal__close" onclick="closeQuestion()" aria-label="Закрыть">&times;</button>
+
+    <!-- Form state -->
+    <div id="question-form-wrap">
+      <span class="question-modal__tag">Вопрос</span>
+      <h3 id="question-title">Задайте свой вопрос</h3>
+      <p class="question-modal__sub">Ответим лично — обычно в течение дня.</p>
+      <form id="question-form" onsubmit="submitQuestion(event)">
+        <div class="question-modal__field">
+          <label for="question-name">Ваше имя</label>
+          <input type="text" id="question-name" name="name" placeholder="Ирина" autocomplete="given-name" required />
+        </div>
+        <div class="question-modal__field">
+          <label for="question-contact">Телефон или email</label>
+          <input type="text" id="question-contact" name="contact" placeholder="+7 900 000 00 00 или email" required />
+        </div>
+        <div class="question-modal__field">
+          <label for="question-text">Ваш вопрос</label>
+          <textarea id="question-text" name="question" rows="4" placeholder="Напишите, что вас интересует..." required></textarea>
+        </div>
+        <button type="submit" class="question-modal__submit" id="question-submit">
+          Отправить вопрос
+        </button>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="question-modal__success" id="question-success">
+      <div class="question-modal__success-heart" aria-hidden="true">
+        <svg width="30" height="28" viewBox="0 0 34 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 29.5C17 29.5 2 20.5 2 10.5C2 6.36 5.36 3 9.5 3C12.14 3 14.46 4.38 16 6.46C17.54 4.38 19.86 3 22.5 3C26.64 3 30 6.36 30 10.5C30 20.5 17 29.5 17 29.5Z" fill="url(#heartGrad2)"/>
+          <defs>
+            <linearGradient id="heartGrad2" x1="2" y1="3" x2="30" y2="29.5" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#C47ED8"/>
+              <stop offset="100%" stop-color="#7B5EA7"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h3>Вопрос отправлен!</h3>
+      <p>Мы ответим вам в ближайшее время.</p>
+      <button class="question-modal__success-close" onclick="closeQuestion()">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Question modal ─────────────────────────────────────────── */
+  function openQuestion() {
+    var overlay = document.getElementById('question-overlay');
+    document.getElementById('question-form-wrap').style.display = '';
+    document.getElementById('question-success').style.display   = 'none';
+    document.getElementById('question-form').reset();
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { document.getElementById('question-name').focus(); }, 80);
+  }
+
+  function closeQuestion() {
+    document.getElementById('question-overlay').classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('question-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeQuestion();
+  });
+
+  function submitQuestion(e) {
+    e.preventDefault();
+    var btn      = document.getElementById('question-submit');
+    var name     = document.getElementById('question-name').value.trim();
+    var contact  = document.getElementById('question-contact').value.trim();
+    var question = document.getElementById('question-text').value.trim();
+
+    btn.disabled    = true;
+    btn.textContent = 'Отправляем…';
+
+    fetch(APPS_SCRIPT_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        type:     'question',
+        name:     name,
+        contact:  contact,
+        question: question,
+        source:   'lekar-wei-lp'
+      })
+    }).catch(function() {
+      // Скрываем ошибку — всё равно показываем успех
+    }).finally(function() {
+      document.getElementById('question-form-wrap').style.display = 'none';
+      var successEl = document.getElementById('question-success');
+      successEl.style.display = 'block';
+      var heart = successEl.querySelector('.question-modal__success-heart');
+      if (heart) { heart.style.animation = 'none'; heart.offsetHeight; heart.style.animation = ''; }
+    });
   }
 </script>
 
