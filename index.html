@@ -1719,7 +1719,20 @@
   /* ── Google Sheets URL ─────────────────────────────────────────
      Замени значение ниже на свой URL после деплоя Apps Script
      ── ─────────────────────────────────────────────────────── */
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdrdZJzqB-I3d-s0m1ZwaT_qpAzA8yKHbW5DeOmStt_rJE4E48B1QlAXCKK-YBUJrM/exec";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxttQzmvCEYK44PjEtliGtswVo3WEDzPSlvwuIhUj20brtO0IpW5SUuUgls4JBelxlr/exec";
+
+  /* ── UTM: читаем из URL, сохраняем в sessionStorage ─────── */
+  function getUTM() {
+    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var params = new URLSearchParams(window.location.search);
+    var utm = {};
+    keys.forEach(function(k) {
+      var v = params.get(k) || sessionStorage.getItem(k) || '';
+      if (v) sessionStorage.setItem(k, v);
+      utm[k] = v;
+    });
+    return utm;
+  }
 
   function submitPreorder(e) {
     e.preventDefault();
@@ -1739,6 +1752,7 @@
       qty:    _preorderQty,
       source: "new-forces-gold"
     };
+    Object.assign(payload, getUTM());
 
     // Отправка в Google Sheets (no-cors — ответ непрозрачный, но запись пройдёт)
     fetch(APPS_SCRIPT_URL, {
@@ -1749,6 +1763,10 @@
     }).catch(function() {
       // Ошибку скрываем — всё равно показываем успех
     }).finally(function() {
+      // Яндекс.Метрика — цель «заявка на покупку»
+      if (typeof ym === 'function') {
+        ym(108689104, 'reachGoal', 'zayavka_na_pokupku');
+      }
       showPreorderSuccess(phone || email);
     });
   }
@@ -1858,17 +1876,19 @@
     btn.disabled    = true;
     btn.textContent = 'Отправляем…';
 
+    var qPayload = Object.assign({
+      type:     'question',
+      name:     name,
+      contact:  contact,
+      question: question,
+      source:   'lekar-wei-lp'
+    }, getUTM());
+
     fetch(APPS_SCRIPT_URL, {
       method:  'POST',
       mode:    'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        type:     'question',
-        name:     name,
-        contact:  contact,
-        question: question,
-        source:   'lekar-wei-lp'
-      })
+      body:    JSON.stringify(qPayload)
     }).catch(function() {
       // Скрываем ошибку — всё равно показываем успех
     }).finally(function() {

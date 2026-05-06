@@ -16,8 +16,8 @@
  *  6. Вставь этот URL в index.html — в переменную APPS_SCRIPT_URL
  *
  *  СТРУКТУРА ТАБЛИЦЫ:
- *  - Лист «Предзаказы» — имя, телефон, email, вариант, источник
- *  - Лист «Вопросы»    — имя, контакт, вопрос, источник
+ *  - Лист «Предзаказы» — имя, телефон, email, вариант, источник, utm_source, utm_medium, utm_campaign, utm_content, utm_term
+ *  - Лист «Вопросы»    — имя, контакт, вопрос, источник, utm_source, utm_medium, utm_campaign, utm_content, utm_term
  */
 
 // ── Конфигурация ──────────────────────────────────────
@@ -49,7 +49,8 @@ function doGet(e) {
 // ── Запись предзаказа ─────────────────────────────────
 function writeOrder(data) {
   var sheet = getOrCreateSheet(ORDERS_SHEET, [
-    "Дата и время", "Имя", "Телефон", "Email", "Вариант", "Источник"
+    "Дата и время", "Имя", "Телефон", "Email", "Вариант", "Источник",
+    "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"
   ], "#2D1B4E");
 
   var variant = data.qty == 3
@@ -58,26 +59,37 @@ function writeOrder(data) {
 
   sheet.appendRow([
     new Date(),
-    data.name  || "",
-    data.phone || "",
-    data.email || "",
+    data.name         || "",
+    data.phone        || "",
+    data.email        || "",
     variant,
-    data.source || "сайт"
+    data.source       || "сайт",
+    data.utm_source   || "",
+    data.utm_medium   || "",
+    data.utm_campaign || "",
+    data.utm_content  || "",
+    data.utm_term     || ""
   ]);
 }
 
 // ── Запись вопроса ────────────────────────────────────
 function writeQuestion(data) {
   var sheet = getOrCreateSheet(QUESTIONS_SHEET, [
-    "Дата и время", "Имя", "Контакт", "Вопрос", "Источник"
+    "Дата и время", "Имя", "Контакт", "Вопрос", "Источник",
+    "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"
   ], "#1B3A4E");
 
   sheet.appendRow([
     new Date(),
-    data.name     || "",
-    data.contact  || "",
-    data.question || "",
-    data.source   || "сайт"
+    data.name         || "",
+    data.contact      || "",
+    data.question     || "",
+    data.source       || "сайт",
+    data.utm_source   || "",
+    data.utm_medium   || "",
+    data.utm_campaign || "",
+    data.utm_content  || "",
+    data.utm_term     || ""
   ]);
 }
 
